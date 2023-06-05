@@ -13,7 +13,7 @@ environment {
 	CREDS_GITHUB=credentials('bd8b00ff-decf-4a75-9e56-1ea2c7d0d708')
 	CONTAINER_NAME = 'jellyseerr'
 	CONTAINER_REPOSITORY = 'sparklyballs/jellyseerr'
-	GITHUB_RELEASE_URL_SUFFIX = 'Fallenbagel/jellyseer/releases/latest'
+	GITHUB_RELEASE_URL_SUFFIX = 'Fallenbagel/jellyseerr/releases/latest'
 	GITHUB_REPOSITORY = 'sparklyballs/jellyseerr'
 	HADOLINT_OPTIONS = '--ignore DL3008 --ignore DL3013 --ignore DL3018 --ignore DL3028 --format json'
 	}
@@ -24,7 +24,7 @@ stage('Query Release Version') {
 steps {
 script{
 	env.RELEASE_VER = sh(script: 'curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/${GITHUB_RELEASE_URL_SUFFIX}" \
-	| jq -r ".tag_name" | sed "s/v//"', returnStdout: true).trim() 
+	| jq -r ".tag_name", returnStdout: true).trim() 
 	}
 	}
 	}
