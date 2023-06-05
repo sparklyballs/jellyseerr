@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bash
+
+
+# cd /opt/jellyseerr || exit
+
+export NODE_ENV=production
+cd /opt/jellyseerr || exit
+
+exec \
+	s6-setuidgid abc \
+	node dist/index.js
