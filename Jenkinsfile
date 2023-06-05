@@ -24,7 +24,7 @@ stage('Query Release Version') {
 steps {
 script{
 	env.RELEASE_VER = sh(script: 'curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/${GITHUB_RELEASE_URL_SUFFIX}" \
-	| jq -r ".tag_name", returnStdout: true).trim() 
+	| jq -r ".tag_name"', returnStdout: true).trim()
 	}
 	}
 	}
