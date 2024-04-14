@@ -48,6 +48,7 @@ RUN \
 	&& apk add --no-cache \
 		bash \
 		g++ \
+		git \
 		make \
 		nodejs \
 		python3 \
