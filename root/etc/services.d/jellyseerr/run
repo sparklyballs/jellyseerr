@@ -8,4 +8,4 @@ cd /opt/jellyseerr || exit
 
 exec \
 	s6-setuidgid abc \
-	node dist/index.js
+	pnpm start

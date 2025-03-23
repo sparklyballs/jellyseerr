@@ -1,4 +1,4 @@
-ARG ALPINE_VER="3.19"
+ARG ALPINE_VER="3.21"
 FROM alpine:${ALPINE_VER} as fetch-stage
 
 ############## fetch stage ##############
@@ -51,7 +51,9 @@ RUN \
 		git \
 		make \
 		nodejs \
+		pnpm \
 		python3 \
+		sqlite \
 		yarn
 
 # set shell
@@ -59,11 +61,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # build package
 RUN \
-	CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile --network-timeout 100000 \
-	&& yarn build \
-	&& yarn install --production --ignore-scripts --prefer-offline \
-	&& rm -rf src server .next/cache \
-	&& touch config/DOCKER
+	CYPRESS_INSTALL_BINARY=0 pnpm install --frozen-lockfile \
+	&& pnpm build
 
 FROM sparklyballs/alpine-test:${ALPINE_VER}
 
@@ -80,8 +79,8 @@ RUN \
 	set -ex \
 	&& apk add --no-cache \
 		nodejs \
-		sqlite \
-		yarn
+		pnpm \
+		sqlite
 		
 # add local files
 COPY root/ /
